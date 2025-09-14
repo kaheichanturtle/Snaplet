@@ -2,7 +2,7 @@
 
 **Build HTML pages without writing a single line of code.**
 
-Welcome to NoCodeCanvas, a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a fantastic little tool, much like your favourite "Hype Boy," making web development approachable for everyone.
+Welcome to NoCodeCanvas, a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a fantastic little tool, much like your favourite "Hype Boy," making web development approachable for everyone. Whether you're sketching a landing page, crafting a portfolio, or prototyping a layout, NoCodeCanvas makes it intuitive and fast.
 
 <table>
  <tr>
