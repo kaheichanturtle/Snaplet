@@ -32,4 +32,6 @@ Simply open the nocodecanvas.html file in your web browser. There's no complex s
 ---
 
 ## License
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 MIT License. See ```License``` for more info. Usage applies to Shellcraft's [Terms and Conditions](https://kaheichan.neocities.org/privacyandterms)
