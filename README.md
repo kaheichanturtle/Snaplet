@@ -5,10 +5,31 @@
 Welcome to NoCodeCanvas, a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a fantastic little tool, much like your favourite "Hype Boy," making web development approachable for everyone. Whether you're sketching a landing page, crafting a portfolio, or prototyping a layout, NoCodeCanvas makes it intuitive and fast.
 
 <table>
- <tr>
+  <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KTiyXxp.png" alt="NoCodeCanvas Image" width="100%">
-      
+      <img src="https://iili.io/KuAs8Al.png" alt="NoCodeCanvas Image" width="100%">
+    </td>
+     <td align="center" width="500">
+      <img src="https://iili.io/KuAXFLP.png" alt="NoCodeCanvas Image" width="100%">
+    </td>
+    </tr> <tr>
+    <td align="center" width="500">
+      <img src="https://iili.io/KuAX97j.png" alt="NoCodeCanvas Image" width="100%">
+    </td>
+   
+
+  <td align="center" width="500">
+      <img src="https://iili.io/KuAWydb.png" alt="NoCodeCanvas Image" width="100%">
+    </td>
+    </tr>
+     <tr>
+    <td align="center" width="500">
+      <img src="https://iili.io/KuAXHkx.png" alt="NoCodeCanvas Image" width="100%">
+    </td>
+    <td align="center" width="500">
+      <img src="https://iili.io/KuAXJmQ.png" alt="NoCodeCanvas Image" width="100%">
+    </td>
+  </tr>
 </table>
 
 ## Features
