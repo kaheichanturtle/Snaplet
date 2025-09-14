@@ -34,7 +34,8 @@ Welcome to NoCodeCanvas, a simple, no-code HTML editor that allows you to easily
 
 ## Features
 
-- **Visual Editing** – Add headings, paragraphs, images, and more with simple clicks  
+- **Visual Editing** – Add text, images, and more with simple clicks
+- **Image Editing** – Resize images, change images
 - **Live Preview** – See your page update in real time  
 - **Export HTML** – Download clean, ready-to-use HTML code  
 - **No Setup Required** – Works right in your browser
