@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoCodeCanvas</title>
+<style>
+    :root {
+        --theme-blue: #007bff;
+        --theme-blue-dark: #0056b3;
+        --theme-light-blue: #e0f7ff;
+        --text-dark: #000000;
+        --text-light: #000000;
+        --border-color: #dbe9fa;
+        --success-green: #28a745;
+        --success-green-dark: #218838;
+    }
+
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: #e1f1f7;
+        color: var(--text-dark);
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    h1 {
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+
+    p {
+        color: var(--text-light);
+        margin-top: 0;
+        margin-bottom: 30px;
+        max-width: 500px;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+    button, label {
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .screen {
+        flex: 1;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .screen.active {
+        display: flex;
+    }
+
+    .container {
+        padding: 40px 50px;
+        border-radius: 24px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 90vw;
+        width: 600px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+    
+    #dropZone {
+        border: 2px dashed var(--border-color);
+        border-radius: 20px;
+        padding: 20px;
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 30px;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    #dropZone.drag-over {
+        background-color: var(--theme-light-blue);
+        border-color: var(--theme-blue);
+    }
+
+    .upload-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .upload-label {
+        display: block;
+        padding: 12px 20px;
+        background-color: #ecf0f1;
+        color: var(--text-dark);
+        border-radius: 10px;
+    }
+    
+    .upload-label:hover {
+        background-color: #dde4e7;
+    }
+    
+    .upload-label.file-loaded {
+        background-color: var(--theme-blue);
+        color: white;
+        font-weight: bold;
+    }
+    
+    input[type="file"] {
+        display: none;
+    }
+    
+    #startBtn {
+        background: var(--theme-blue);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    #startBtn:hover {
+        background: var(--theme-blue-dark);
+        transform: translateY(-2px);
+    }
+    
+    #editor {
+        padding: 10px 20px 80px 20px;
+    }
+    #preview {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    #preview * {
+        border: 1px dashed transparent;
+        padding: 2px;
+    }
+
+    #preview *:hover {
+        border-color: #aaa;
+        cursor: text;
+    }
+    
+    .editor-controls {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+    }
+
+    #exportBtn {
+        background: var(--success-green);
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 10px;
+    }
+
+    #exportBtn:hover {
+        background: var(--success-green-dark);
+    }
+
+    #exportCode {
+        width: 100%;
+        height: 30vh;
+        min-height: 200px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        padding: 15px;
+        font-family: monospace;
+        font-size: 14px;
+        resize: vertical;
+        margin-bottom: 20px;
+    }
+    
+    .filename-container {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+    
+    #filenameInput {
+        flex-grow: 1;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        font-size: 14px;
+    }
+    
+    #downloadBtn {
+        background: var(--theme-blue);
+        color: white;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 10px;
+    }
+    
+    #downloadBtn:hover {
+        background: var(--theme-blue-dark);
+    }
+
+    .export-buttons {
+        display: flex;
+        gap: 15px;
+    }
+    
+    #backToEditorBtn {
+        background: #6c757d;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 10px;
+    }
+    
+    #backToEditorBtn:hover {
+        background: #5a6268;
+    }
+    
+    footer {
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 13px;
+        color: var(--text-dark);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+
+    footer a {
+        color: var(--theme-blue);
+        font-weight: bold;
+        text-decoration: none;
+    }
+    
+    footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+
+<div id="home" class="screen active">
+    <div class="container">
+        <h1>NoCodeCanvas</h1>
+        <p>Your creative space. Drag and drop your project files into the zone below or click the buttons to upload. An HTML file is required to start.</p>
+        
+        <div id="dropZone">
+            <div class="upload-steps">
+                <label for="cssFile" class="upload-label" id="cssLabel">Upload CSS (Style) File (Optional)</label>
+                <input type="file" id="cssFile" accept=".css">
+                
+                <label for="imgFiles" class="upload-label" id="imgLabel">Upload Images (Optional)</label>
+                <input type="file" id="imgFiles" accept="image/*" multiple>
+                
+                <label for="htmlFile" class="upload-label" id="htmlLabel">Upload HTML File (Required)</label>
+                <input type="file" id="htmlFile" accept=".html,.htm">
+            </div>
+        </div>
+        
+        <button id="startBtn">Start Editing</button>
+    </div>
+</div>
+
+<div id="editor" class="screen">
+    <iframe id="preview" sandbox="allow-same-origin allow-scripts"></iframe>
+    <div class="editor-controls">
+        <button id="exportBtn">Save & Export</button>
+    </div>
+</div>
+
+<div id="exportScreen" class="screen">
+    <div class="container">
+        <h2>Your Updated Code</h2>
+        <p>You can copy the code below or download the file with a custom name.</p>
+        <textarea id="exportCode" readonly></textarea>
+        <div class="filename-container">
+            <input type="text" id="filenameInput" value="edited-page.html">
+            <button id="downloadBtn">Download</button>
+        </div>
+        <div class="export-buttons">
+            <button id="backToEditorBtn">Back to Editor</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Made by <a href="https://kaheichan.neocities.org" target="_blank" rel="noopener noreferrer">Ka Hei Chan</a>. All Rights Reserved Shellcraft Studios 2025.
+    <a href="https://kaheichan.neocities.org/privacyandterms" target="_blank" rel="noopener noreferrer">privacy and tnc</a>.
+    <br>
+    This website is Open Source on <a href="https://github.com/kaheichanturtle/NoCodeCanvas" target="_blank" rel="noopener noreferrer">GitHub</a>, feel free to modify and improve it!
+</footer>
+
+<script>
+    const screens = {
+        home: document.getElementById('home'),
+        editor: document.getElementById('editor'),
+        export: document.getElementById('exportScreen'),
+    };
+    const preview = document.getElementById('preview');
+    const dropZone = document.getElementById('dropZone');
+    const startBtn = document.getElementById('startBtn');
+    
+    const inputs = {
+        css: document.getElementById('cssFile'),
+        images: document.getElementById('imgFiles'),
+        html: document.getElementById('htmlFile'),
+    };
+    const labels = {
+        css: document.getElementById('cssLabel'),
+        images: document.getElementById('imgLabel'),
+        html: document.getElementById('htmlLabel'),
+    };
+
+    const exportBtn = document.getElementById('exportBtn');
+    const backToEditorBtn = document.getElementById('backToEditorBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const exportCodeArea = document.getElementById('exportCode');
+    const filenameInput = document.getElementById('filenameInput');
+
+    let htmlContent = '';
+    let cssContent = '';
+    let htmlFileName = 'index.html';
+    const imageMap = {};
+
+
+    function showScreen(screenName) {
+        Object.values(screens).forEach(screen => screen.classList.remove('active'));
+        if (screens[screenName]) {
+            screens[screenName].classList.add('active');
+        }
+    }
+
+
+    function updateFileIndicator(labelEl, baseText, fileNames) {
+        labelEl.classList.add('file-loaded');
+        if (Array.isArray(fileNames) && fileNames.length > 1) {
+             labelEl.textContent = `${fileNames.length} Images Loaded ✔`;
+        } else {
+            labelEl.textContent = `${Array.isArray(fileNames) ? fileNames[0] : fileNames} ✔`;
+        }
+    }
+
+
+    function processFiles(files) {
+        for (const file of files) {
+            const reader = new FileReader();
+            if (file.type.startsWith('image/')) {
+                reader.onload = evt => {
+                    imageMap[file.name] = evt.target.result;
+                    const imageNames = Object.keys(imageMap);
+                    updateFileIndicator(labels.images, 'Upload Images', imageNames);
+                };
+                reader.readAsDataURL(file);
+            } else if (file.name.endsWith('.css')) {
+                reader.onload = evt => {
+                    cssContent = evt.target.result;
+                    updateFileIndicator(labels.css, 'Upload CSS', file.name);
+                };
+                reader.readAsText(file);
+            } else if (file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+                reader.onload = evt => {
+                    htmlContent = evt.target.result;
+                    htmlFileName = file.name;
+                    updateFileIndicator(labels.html, 'Upload HTML', file.name);
+                };
+                reader.readAsText(file);
+            }
+        }
+    }
+    
+
+    function loadPreview() {
+        let content = htmlContent;
+
+        Object.keys(imageMap).forEach(name => {
+            const regex = new RegExp(name, 'g');
+            content = content.replace(regex, imageMap[name]);
+        });
+
+        if (cssContent) {
+            const styleTag = `<style id="livePreviewStyle">${cssContent}</style>`;
+            if (content.includes('</head>')) {
+                content = content.replace('</head>', `${styleTag}</head>`);
+            } else {
+                content = styleTag + content;
+            }
+        }
+
+        preview.srcdoc = content;
+
+        preview.onload = () => {
+            const doc = preview.contentDocument;
+            doc.body.setAttribute('contentEditable', 'true');
+        };
+    }
+    
+
+    function generateExportHTML() {
+        const doc = preview.contentDocument.cloneNode(true);
+
+        doc.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+        
+        const styleEl = doc.getElementById('livePreviewStyle');
+        if (styleEl) styleEl.remove();
+
+        return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+    }
+
+
+    
+    inputs.css.addEventListener('change', e => processFiles(e.target.files));
+    inputs.images.addEventListener('change', e => processFiles(e.target.files));
+    inputs.html.addEventListener('change', e => processFiles(e.target.files));
+
+    dropZone.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('drag-over');
+    });
+    dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        processFiles(e.dataTransfer.files);
+    });
+
+    startBtn.addEventListener('click', () => {
+        if (!htmlContent) {
+            // Replace with a custom modal, not an alert
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+              <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                  <p>Please upload an HTML file first.</p>
+                  <button onclick="this.parentElement.parentElement.remove()" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">OK</button>
+                </div>
+              </div>
+            `;
+            document.body.appendChild(modal);
+            return;
+        }
+        showScreen('editor');
+        loadPreview();
+    });
+
+    exportBtn.addEventListener('click', () => {
+        const finalHTML = generateExportHTML();
+        exportCodeArea.value = finalHTML;
+        
+        const baseName = htmlFileName.replace(/\.(html|htm)$/, '');
+        filenameInput.value = `${baseName}2.html`;
+        
+        showScreen('export');
+    });
+
+    downloadBtn.addEventListener('click', () => {
+        const finalHTML = exportCodeArea.value;
+        const blob = new Blob([finalHTML], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filenameInput.value || 'edited-page.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+
+    backToEditorBtn.addEventListener('click', () => {
+        showScreen('editor');
+    });
+
+</script>
+
+</body>
+</html>
