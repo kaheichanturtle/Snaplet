@@ -2,7 +2,7 @@
 **Build HTML pages without writing a single line of code.**
 
 
-Welcome to Snaplet, a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a great little tool for making web development approachable for everyone. Whether you're sketching a landing page, crafting a portfolio, or prototyping a layout, Snaplet makes it intuitive and fast.
+Welcome to Snaplet (Formally NoCodeCanvas), a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a great little tool for making web development approachable for everyone. Whether you're sketching a landing page, crafting a portfolio, or prototyping a layout, Snaplet makes it intuitive and fast.
 
 <table>
   <tr>
