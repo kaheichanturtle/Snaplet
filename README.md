@@ -7,27 +7,27 @@ Welcome to Snaplet (Formally NoCodeCanvas), a simple, no-code HTML editor that a
 <table>
   <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAs8Al.png" alt="Snaplet Image" width="100%">
+      <img src="https://kaheichan.neocities.org/snaplet/drag.jpeg" alt="Snaplet Image" width="100%">
     </td>
      <td align="center" width="500">
-      <img src="https://iili.io/KuAXFLP.png" alt="Snaplet Image" width="100%">
+      <img src="https://kaheichan.neocities.org/snaplet/text.jpeg" alt="Snaplet Image" width="100%">
     </td>
     </tr> <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAX97j.png" alt="Snaplet Image" width="100%">
+      <img src="https://kaheichan.neocities.org/snaplet/format.jpeg" alt="Snaplet Image" width="100%">
     </td>
    
 
   <td align="center" width="500">
-      <img src="https://iili.io/KuAWydb.png" alt="Snaplet Image" width="100%">
+      <img src="https://kaheichan.neocities.org/snaplet/image.jpeg" alt="Snaplet Image" width="100%">
     </td>
     </tr>
      <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAXHkx.png" alt="Snaplet Image" width="100%">
+      <img src="https://kaheichan.neocities.org/snaplet/style.jpeg" alt="Snaplet Image" width="100%">
     </td>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAXJmQ.png" alt="Snaplet Image" width="100%">
+      <img src="https://kaheichan.neocities.org/snaplet/export.jpeg" alt="Snaplet Image" width="100%">
     </td>
   </tr>
 </table>
