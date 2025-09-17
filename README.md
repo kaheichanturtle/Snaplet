@@ -1,33 +1,33 @@
-# NoCodeCanvas
-
+# Snaplet - Snap, Style, Ship
 **Build HTML pages without writing a single line of code.**
 
-Welcome to NoCodeCanvas, a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a fantastic little tool, much like your favourite "Hype Boy," making web development approachable for everyone. Whether you're sketching a landing page, crafting a portfolio, or prototyping a layout, NoCodeCanvas makes it intuitive and fast.
+
+Welcome to Snaplet, a simple, no-code HTML editor that allows you to easily edit your web pages directly in your browser. This project is a great little tool for making web development approachable for everyone. Whether you're sketching a landing page, crafting a portfolio, or prototyping a layout, Snaplet makes it intuitive and fast.
 
 <table>
   <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAs8Al.png" alt="NoCodeCanvas Image" width="100%">
+      <img src="https://iili.io/KuAs8Al.png" alt="Snaplet Image" width="100%">
     </td>
      <td align="center" width="500">
-      <img src="https://iili.io/KuAXFLP.png" alt="NoCodeCanvas Image" width="100%">
+      <img src="https://iili.io/KuAXFLP.png" alt="Snaplet Image" width="100%">
     </td>
     </tr> <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAX97j.png" alt="NoCodeCanvas Image" width="100%">
+      <img src="https://iili.io/KuAX97j.png" alt="Snaplet Image" width="100%">
     </td>
    
 
   <td align="center" width="500">
-      <img src="https://iili.io/KuAWydb.png" alt="NoCodeCanvas Image" width="100%">
+      <img src="https://iili.io/KuAWydb.png" alt="Snaplet Image" width="100%">
     </td>
     </tr>
      <tr>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAXHkx.png" alt="NoCodeCanvas Image" width="100%">
+      <img src="https://iili.io/KuAXHkx.png" alt="Snaplet Image" width="100%">
     </td>
     <td align="center" width="500">
-      <img src="https://iili.io/KuAXJmQ.png" alt="NoCodeCanvas Image" width="100%">
+      <img src="https://iili.io/KuAXJmQ.png" alt="Snaplet Image" width="100%">
     </td>
   </tr>
 </table>
@@ -45,11 +45,11 @@ Welcome to NoCodeCanvas, a simple, no-code HTML editor that allows you to easily
 ## Getting Started
 
 Navigate to 
-[kaheichan.neocities.org/nocodecanvas](https://kaheichan.neocities.org/nocodecanvas)
+[kaheichan.neocities.org/Snaplet](https://kaheichan.neocities.org/snaplet)
 
 or
 
-Simply open the nocodecanvas.html file in your web browser. There's no complex setup required.
+Simply open the Snaplet.html file in your web browser. There's no complex setup required.
 
 ---
 
