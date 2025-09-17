@@ -162,9 +162,10 @@
 <body>
 
 <!-- SCREENS -->
-<div id="home" class="screen active"><div class="container"><h1>Snaplet</h1><p>Visually edit your websites. Drag your project files below or use the buttons to upload. An HTML file is required to start.</p><div id="dropZone"><div class="upload-steps"><label for="cssFile" class="upload-label" id="cssLabel">1. Upload CSS (Optional)</label><input type="file" id="cssFile" accept=".css"><label for="imgFiles" class="upload-label" id="imgLabel">2. Upload Images (Optional)</label><input type="file" id="imgFiles" accept="image/*" multiple><label for="htmlFile" class="upload-label" id="htmlLabel">3. Upload HTML (Required)</label><input type="file" id="htmlFile" accept=".html,.htm"></div></div><div class="home-actions"><button id="tutorialBtn" class="nice-button secondary-button">How to use</button><button id="startBtn" class="nice-button">Start Editing</button></div></div><footer style="position:fixed; bottom:0; width:100%; text-align:center; padding: 15px 0; font-size: 13px; color: var(--text-light);">Made by <a href="https://kaheichan.neocities.org" target="_blank" rel="noopener noreferrer">Ka Hei, Shellcraft Studios</a>. 
+<div id="home" class="screen active"><div class="container"><h1>Snaplet</h1><p>Visually edit your websites. Drag your project files below or use the buttons to upload. An HTML file is required to start.</p><div id="dropZone"><div class="upload-steps"><label for="htmlFile" class="upload-label" id="htmlLabel">1. Upload HTML (Required)</label><input type="file" id="htmlFile" accept=".html,.htm"><label for="cssFile" class="upload-label" id="cssLabel">2. Upload CSS (Optional)</label><input type="file" id="cssFile" accept=".css"><label for="jsFile" class="upload-label" id="jsLabel">3. Upload JS (Optional)</label><input type="file" id="jsFile" accept=".js"><label for="imgFiles" class="upload-label" id="imgLabel">4. Upload Images (Optional)</label><input type="file" id="imgFiles" accept="image/*" multiple></div></div><div class="home-actions"><button id="tutorialBtn" class="nice-button secondary-button">How to use</button><button id="startBtn" class="nice-button">Start Editing</button></div></div><footer style="position:fixed; bottom:0; width:100%; text-align:center; padding: 15px 0; font-size: 13px; color: var(--text-light);">Made by <a href="https://kaheichan.neocities.org" target="_blank" rel="noopener noreferrer">Ka Hei, Shellcraft Studios</a>. 
         Open Source on <a href="https://github.com/kaheichanturtle/Snaplet" target="_blank" rel="noopener noreferrer">GitHub</a>. 
-        Usage <a href="https://kaheichan.neocities.org/privacyandterms" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> apply.</footer></div>
+        <a href="https://github.com/kaheichanturtle/Snaplet/issues" target="_blank" rel="noopener noreferrer">Suggestions & Bugs</a>.
+        Usage <a href="https://kaheichan.neocities.org/privacyandterms" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> apply. Version 4.1</footer></div>
 
 <div id="editor" class="screen">
     <main class="editor-main"><iframe id="preview" sandbox="allow-same-origin allow-scripts"></iframe></main>
@@ -198,27 +199,27 @@
         <h2>How to use Snaplet</h2>
         <div class="tutorial-grid">
             <div class="tutorial-step">
-                <div class="image-placeholder">1. Upload your files</div>
-                <p>Drag & drop your project files (HTML, CSS, images) or use the upload buttons. An HTML file is required to start.</p>
+<img src="drag.jpeg"  width="270" height="150">
+<p>Drag & drop your project files (HTML, CSS, JS, images) or use the upload buttons. An HTML file is required.</p>
             </div>
             <div class="tutorial-step">
-                <div class="image-placeholder">2. Edit text directly</div>
+<img src="text.jpeg"  width="270" height="150">
                 <p>Simply click on any text in the preview window to edit it, just like in a word processor.</p>
             </div>
             <div class="tutorial-step">
-                <div class="image-placeholder">3. Use the toolbar</div>
+<img src="format.jpeg"  width="270" height="150">
                 <p>Format text (bold, italic), add links, and change fonts using the floating toolbar at the bottom.</p>
             </div>
             <div class="tutorial-step">
-                <div class="image-placeholder">4. Manage images</div>
+<img src="image.jpeg"  width="270" height="150">
                 <p>Drag images from the left panel onto the page. Drag onto existing images to replace them.</p>
             </div>
             <div class="tutorial-step">
-                <div class="image-placeholder">5. Change colors</div>
+<img src="style.jpeg"  width="270" height="150">
                 <p>Open the right panel to visually edit colors from your stylesheet. Changes are applied live.</p>
             </div>
             <div class="tutorial-step">
-                <div class="image-placeholder">6. Save and Export</div>
+<img src="export.jpeg"  width="270" height="150">
                 <p>Click "Save & Export" to get your updated HTML or download a complete .zip of your project.</p>
             </div>
         </div>
@@ -248,8 +249,8 @@
 
 <script>
     const screens = { home: document.getElementById('home'), editor: document.getElementById('editor'), export: document.getElementById('exportScreen'), };
-    const inputs = { css: document.getElementById('cssFile'), images: document.getElementById('imgFiles'), html: document.getElementById('htmlFile'), addMoreImages: document.getElementById('addMoreImages'), };
-    const labels = { css: document.getElementById('cssLabel'), images: document.getElementById('imgLabel'), html: document.getElementById('htmlLabel'), };
+    const inputs = { html: document.getElementById('htmlFile'), css: document.getElementById('cssFile'), js: document.getElementById('jsFile'), images: document.getElementById('imgFiles'), addMoreImages: document.getElementById('addMoreImages'), };
+    const labels = { html: document.getElementById('htmlLabel'), css: document.getElementById('cssLabel'), js: document.getElementById('jsLabel'), images: document.getElementById('imgLabel'), };
     const dropZone = document.getElementById('dropZone');
     const startBtn = document.getElementById('startBtn');
     const preview = document.getElementById('preview');
@@ -267,7 +268,7 @@
     const tutorialBtn = document.getElementById('tutorialBtn'), tutorialModal = document.getElementById('tutorialModal'), closeTutorialBtn = document.getElementById('closeTutorialBtn');
     let cropper = null; let imageBeingCropped = null;
 
-    let htmlContent = '', cssContent = '', cssFileName = 'style.css', htmlFileName = 'index.html';
+    let htmlContent = '', cssContent = '', jsContent = '', cssFileName = 'style.css', jsFileName = 'script.js', htmlFileName = 'index.html';
     const imageMap = new Map();
     const importedFontLinks = [];
     let lastSelectedFont = fontSelect.value;
@@ -290,6 +291,9 @@
             } else if (file.name.endsWith('.css')) {
                 reader.onload = evt => { cssContent = evt.target.result; cssFileName = file.name; updateFileIndicator(labels.css, [file.name]); populateColorEditor(); };
                 reader.readAsText(file);
+            } else if (file.name.endsWith('.js')) {
+                reader.onload = evt => { jsContent = evt.target.result; jsFileName = file.name; updateFileIndicator(labels.js, [file.name]); };
+                reader.readAsText(file);
             } else if (file.name.endsWith('.html') || file.name.endsWith('.htm')) {
                 reader.onload = evt => { htmlContent = evt.target.result; htmlFileName = file.name; updateFileIndicator(labels.html, [file.name]); };
                 reader.readAsText(file);
@@ -299,7 +303,6 @@
 
     function updateImageTray() {
         const addMoreButton = imageTray.querySelector('#addMoreImagesLabel');
-        const fileInput = imageTray.querySelector('#addMoreImages');
         imageTray.querySelectorAll('.tray-image').forEach(img => img.remove());
         
         for (const [name, dataUrl] of imageMap.entries()) {
@@ -321,8 +324,11 @@
             content = content.replace(regex, `$1="${dataUrl}"`);
         }
         if (cssContent) {
-            content = content.replace('</head>', `<style id="page-styles">${cssContent}</style></head>`);
+            content = content.replace('</head>', `<style id="page-styles-css">${cssContent}</style></head>`);
             populateColorEditor();
+        }
+        if (jsContent) {
+            content = content.replace('</body>', `<script id="page-styles-js">${jsContent}<\/script></body>`);
         }
         
         preview.srcdoc = content;
@@ -335,7 +341,7 @@
     
     function injectEditorLogic(doc) {
         doc.head.innerHTML += `
-            <style id="editor-styles">:root { --theme-primary: #8b5cf6; } [contenteditable]:focus { outline: none; } .editor-image-wrapper { position: relative; display: inline-block; line-height: 0; user-select: none; } .editor-image-wrapper > img { outline: 2px solid var(--theme-primary); outline-offset: 2px; } .editor-control { position: absolute; background: white; border: 1px solid var(--theme-primary); border-radius: 50%; color: var(--theme-primary); box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 10; cursor: pointer; } .editor-control-btn { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; } .editor-resizer { bottom: -11px; right: -11px; cursor: se-resize; } .editor-delete-btn { top: -11px; right: -11px; font-size: 16px; font-weight: bold; } .editor-slider-control { top: -11px; left: -11px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 3H6a3 3 0 0 0-3 3v12h18V6a3 3 0 0 0-3-3Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; } .editor-opacity-control { bottom: -11px; left: -11px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a10 10 0 0 0 0 20V2Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; } .editor-crop-btn { top: 50%; left: -11px; transform: translateY(-50%); } .editor-slider-popup { position: absolute; left: 30px; bottom: -5px; background: white; padding: 5px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #d1d5db; display: none; } input[type=range].editor-slider { width: 100px; } #drop-indicator-line { position: absolute; height: 2px; background: var(--theme-primary); z-index: 9999; pointer-events: none; display: none; } #drop-indicator-line::before, #drop-indicator-line::after { content: ''; position: absolute; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--theme-primary); } #drop-indicator-line::before { left: -4px; } #drop-indicator-line::after { right: -4px; } .drop-replace-indicator { outline: 3px dotted var(--theme-primary) !important; outline-offset: 3px; }</style>`;
+            <style id="editor-styles">:root { --theme-primary: #8b5cf6; } body { user-select: none; -webkit-user-select: none; } [contenteditable]:focus { outline: none; user-select: text; -webkit-user-select: text; } .editor-image-wrapper { position: relative; display: inline-block; line-height: 0; user-select: none; } .editor-image-wrapper > img { outline: 2px solid var(--theme-primary); outline-offset: 2px; } .editor-control { position: absolute; background: white; border: 1px solid var(--theme-primary); border-radius: 50%; color: var(--theme-primary); box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 10; cursor: pointer; } .editor-control-btn { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; } .editor-resizer { bottom: -11px; right: -11px; cursor: se-resize; } .editor-delete-btn { top: -11px; right: -11px; font-size: 16px; font-weight: bold; } .editor-slider-control { top: -11px; left: -11px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 3H6a3 3 0 0 0-3 3v12h18V6a3 3 0 0 0-3-3Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; } .editor-opacity-control { bottom: -11px; left: -11px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a10 10 0 0 0 0 20V2Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; } .editor-crop-btn { top: 50%; left: -11px; transform: translateY(-50%); } .editor-slider-popup { position: absolute; left: 30px; bottom: -5px; background: white; padding: 5px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #d1d5db; display: none; } input[type=range].editor-slider { width: 100px; } #drop-indicator-line { position: absolute; height: 2px; background: var(--theme-primary); z-index: 9999; pointer-events: none; display: none; } #drop-indicator-line::before, #drop-indicator-line::after { content: ''; position: absolute; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--theme-primary); } #drop-indicator-line::before { left: -4px; } #drop-indicator-line::after { right: -4px; } .drop-replace-indicator { outline: 3px dotted var(--theme-primary) !important; outline-offset: 3px; }</style>`;
         
         const script = doc.createElement('script'); script.id = 'editor-script';
         script.innerHTML = `let selectedImageWrapper=null,activeSliderPopup=null,currentDropTarget=null,lastDropTarget=null,dropPosition="after";const dropIndicatorLine=document.createElement("div");dropIndicatorLine.id="drop-indicator-line",document.body.appendChild(dropIndicatorLine),document.addEventListener("click",e=>{const t=e.target.closest(".editor-image-wrapper");selectedImageWrapper&&!t&&deselectImage();const o=e.target.closest("img");o&&!o.closest(".editor-image-wrapper")&&(e.preventDefault(),e.stopPropagation(),selectImage(o)),activeSliderPopup&&!e.target.closest(".editor-slider-popup")&&(activeSliderPopup.style.display="none",activeSliderPopup=null)},!0);const cleanupIndicators=()=>{dropIndicatorLine.style.display="none",lastDropTarget&&lastDropTarget.classList.remove("drop-replace-indicator")};function deselectImage(){if(!selectedImageWrapper)return;const e=selectedImageWrapper.querySelector("img");e&&selectedImageWrapper.parentNode.replaceChild(e,selectedImageWrapper),selectedImageWrapper=null,activeSliderPopup&&(activeSliderPopup.style.display="none",activeSliderPopup=null)}function createSlider(e,t,o,i){const l=document.createElement("input");l.type="range",l.min=0,l.max=i,l.className="editor-slider";const n=parseFloat(e.style[t]);return l.value=isNaN(n)?"opacity"===t?i:0:"opacity"===t?n*i:n,l.addEventListener("input",()=>{e.style[t]="opacity"===t?l.value/i:l.value+o}),l}function createSliderPopup(e,t){const o=document.createElement("div");o.className="editor-slider-popup",o.appendChild(t),e.appendChild(o),e.addEventListener("click",e=>{e.stopPropagation(),activeSliderPopup&&activeSliderPopup!==o&&(activeSliderPopup.style.display="none");const t="block"===o.style.display;o.style.display=t?"none":"block",activeSliderPopup=t?null:o})}function selectImage(e){if(e.parentElement.classList.contains("editor-image-wrapper"))return;deselectImage();const t=document.createElement("div");t.className="editor-image-wrapper",e.parentNode.insertBefore(t,e),t.appendChild(e),selectedImageWrapper=t;const o=document.createElement("div");o.className="editor-control editor-control-btn editor-resizer",t.appendChild(o),o.addEventListener("mousedown",t=>{t.preventDefault(),t.stopPropagation();const o=t.clientX,i=e.width,l=t=>{e.style.width=i+t.clientX-o+"px",e.style.height="auto"},n=()=>document.removeEventListener("mousemove",l);document.addEventListener("mousemove",l),document.addEventListener("mouseup",n,{once:!0})});const i=document.createElement("div");i.className="editor-control editor-control-btn editor-delete-btn",i.innerHTML="×",i.onclick=()=>t.remove(),t.appendChild(i);const l=document.createElement("div");l.className="editor-control editor-control-btn editor-slider-control",createSliderPopup(l,createSlider(e,"borderRadius","px",Math.min(e.width,e.height)/2)),t.appendChild(l);const n=document.createElement("div");n.className="editor-control editor-control-btn editor-opacity-control",createSliderPopup(n,createSlider(e,"opacity","",100)),t.appendChild(n);const r=document.createElement("div");r.className="editor-control editor-control-btn editor-crop-btn",r.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"></path><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"></path></svg>',r.onclick=()=>window.parent.openCropModal(e),t.appendChild(r)}document.body.addEventListener("dragover",e=>{e.preventDefault(),e.dataTransfer.dropEffect="copy";const t=e.target.closest("p, div, li, h1, h2, h3, img, a, section, header, footer");if(!t)return;currentDropTarget=t,lastDropTarget&&lastDropTarget!==currentDropTarget&&lastDropTarget.classList.remove("drop-replace-indicator"),"IMG"===t.tagName?(dropPosition="replace",t.classList.add("drop-replace-indicator"),dropIndicatorLine.style.display="none"):(t.classList.remove("drop-replace-indicator"),(()=>{const t=currentDropTarget.getBoundingClientRect(),o=.5*t.height+t.top;dropPosition=e.clientY<o?"before":"after";const i="before"===dropPosition?t.top:t.bottom;dropIndicatorLine.style.display="block",dropIndicatorLine.style.top=i+window.scrollY+"px",dropIndicatorLine.style.left=t.left+"px",dropIndicatorLine.style.width=t.width+"px"})()),lastDropTarget=currentDropTarget}),document.body.addEventListener("dragleave",e=>{e.relatedTarget&&"HTML"!==e.relatedTarget.nodeName||cleanupIndicators()}),document.body.addEventListener("drop",e=>{e.preventDefault();const t=e.dataTransfer.getData("text/uri-list")||e.dataTransfer.getData("text/plain"),o=e.dataTransfer.getData("custom/filename");if(!t||!currentDropTarget)return void cleanupIndicators();const i=document.createElement("img");switch(i.src=t,i.style.maxWidth="100%",o&&(i.dataset.filename=o),dropPosition){case"replace":currentDropTarget.src=t,o&&(currentDropTarget.dataset.filename=o);break;case"before":currentDropTarget.parentNode.insertBefore(i,currentDropTarget);break;case"after":currentDropTarget.parentNode.insertBefore(i,currentDropTarget.nextSibling)}cleanupIndicators(),currentDropTarget=null});`;
@@ -388,22 +394,43 @@
 
     function regenerateAndApplyCSS() {
         cssContent = cssRules.map(rule => `${rule.selector} {\n  ${rule.properties.split(';').map(s=>s.trim()).join(';\n  ')}\n}`).join('\n\n');
-        let styleTag = preview.contentDocument.getElementById('page-styles');
+        let styleTag = preview.contentDocument.getElementById('page-styles-css');
         if (styleTag) styleTag.textContent = cssContent;
     }
-
+    
     function addSnapletComments(htmlString) {
-        const comment = '<!-- Modified with Snaplet, kaheichan.neocities.org/snaplet -->';
         const lines = htmlString.split('\n');
-        const newLines = [comment];
+        const newLines = [];
+        let commentCounter = 1;
+        let inScriptTag = false;
+        let inStyleTag = false;
+
+        const makeComment = (text) => {
+            const content = `${commentCounter++}. ${text}`;
+            if (inScriptTag) return `// ${content}`;
+            if (inStyleTag) return `/* ${content} */`;
+            return `<!-- ${content} -->`;
+        };
+
+        const baseComment = "Modified with Snaplet, kaheichan.neocities.org/snaplet";
+        newLines.push(makeComment(baseComment));
+
         for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (line.includes('<script')) inScriptTag = true;
+            if (line.includes('</script')) inScriptTag = false;
+            if (line.includes('<style')) inStyleTag = true;
+            if (line.includes('</style')) inStyleTag = false;
+
             newLines.push(lines[i]);
+
             if ((i + 1) % 5 === 0 && i < lines.length - 1) {
-                newLines.push(comment);
+                newLines.push(makeComment(baseComment));
             }
         }
-        if (newLines[newLines.length - 1] !== comment) {
-            newLines.push(comment);
+        
+        if (newLines[newLines.length - 1].trim() !== makeComment(baseComment).trim()) {
+            newLines.push(makeComment(baseComment));
         }
         return newLines.join('\n');
     }
@@ -413,9 +440,13 @@
         finalDoc.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
         finalDoc.querySelectorAll('.editor-image-wrapper').forEach(wrapper => wrapper.parentNode.replaceChild(wrapper.querySelector('img'), wrapper));
         finalDoc.querySelectorAll('#editor-styles, #editor-script, #drop-indicator-line').forEach(el => el.remove());
+        
         finalDoc.querySelectorAll('img').forEach(img => { if (img.src.startsWith('data:image')) { const originalName = img.dataset.filename || `image-${Date.now()}.png`; usedImages.set(originalName, img.src); img.src = `images/${originalName}`; img.removeAttribute('data-filename'); } });
         if (usedImages.size > 0) { const imgFolder = zip.folder('images'); for (const [name, dataUrl] of usedImages.entries()) { const base64Data = dataUrl.split(',')[1]; imgFolder.file(name, base64Data, { base64: true }); } }
-        if (cssContent) { finalDoc.querySelector('#page-styles')?.remove(); const link = finalDoc.createElement('link'); link.rel = 'stylesheet'; link.href = cssFileName; finalDoc.head.appendChild(link); zip.file(cssFileName, cssContent); }
+        
+        if (cssContent) { finalDoc.querySelector('#page-styles-css')?.remove(); const link = finalDoc.createElement('link'); link.rel = 'stylesheet'; link.href = cssFileName; finalDoc.head.appendChild(link); zip.file(cssFileName, cssContent); }
+        if (jsContent) { finalDoc.querySelector('#page-styles-js')?.remove(); const script = finalDoc.createElement('script'); script.src = jsFileName; script.defer = true; finalDoc.body.appendChild(script); zip.file(jsFileName, jsContent); }
+
         const rawHTML = '<!DOCTYPE html>\n' + finalDoc.documentElement.outerHTML;
         const finalHTML = addSnapletComments(rawHTML);
         zip.file(filenameInput.value.replace(/\.zip$/, '.html'), finalHTML);
@@ -442,7 +473,7 @@
     
     exportBtn.addEventListener('click', () => {
         const finalDoc = preview.contentDocument.cloneNode(true);
-        finalDoc.querySelectorAll('[contenteditable], .editor-image-wrapper, #editor-styles, #editor-script, #drop-indicator-line').forEach(el => el.removeAttribute('contenteditable') || (el.matches('.editor-image-wrapper') && el.parentNode.replaceChild(el.querySelector('img'), el)) || el.remove());
+        finalDoc.querySelectorAll('[contenteditable], .editor-image-wrapper, #editor-styles, #editor-script, #drop-indicator-line, #page-styles-css, #page-styles-js').forEach(el => el.removeAttribute('contenteditable') || (el.matches('.editor-image-wrapper') && el.parentNode.replaceChild(el.querySelector('img'), el)) || el.remove());
         const rawHTML = '<!DOCTYPE html>\n' + finalDoc.documentElement.outerHTML;
         exportCodeArea.value = addSnapletComments(rawHTML);
         filenameInput.value = htmlFileName;
