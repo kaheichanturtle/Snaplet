@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/53677691?s=48&v=4">
+<title>SnapClean</title>
+<style>
+    :root {
+        --theme-primary: #8b5cf6;
+        --theme-primary-dark: #7c3aed;
+        --theme-primary-light: #ddd6fe;
+        --theme-primary-faint: #f5f3ff;
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --border-color: #d1d5db;
+        --background: #f9fafb;
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+        margin: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text-dark);
+        background-color: var(--background);
+        padding: 20px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 8px; }
+    p { margin-top: 0; margin-bottom: 30px; max-width: 600px; text-align: center; font-size: 1.1rem; color: var(--text-light); }
+    .io-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+        margin-bottom: 25px;
+    }
+    .box {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+    .box h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-light);
+    }
+    textarea {
+        width: 100%;
+        flex-grow: 1;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        padding: 15px;
+        font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+        font-size: 14px;
+        resize: none;
+        box-sizing: border-box;
+        min-height: 55vh;
+    }
+    textarea:focus {
+        outline: 2px solid var(--theme-primary);
+        border-color: var(--theme-primary);
+    }
+    .actions {
+        display: flex;
+        gap: 15px;
+    }
+    button {
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        border: none;
+        background: var(--theme-primary);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 16px;
+        box-shadow: var(--shadow-md);
+    }
+    button:hover {
+        background: var(--theme-primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+    button.secondary {
+        background: #fff;
+        color: var(--theme-primary);
+        border: 1px solid var(--theme-primary-light);
+    }
+    button.secondary:hover {
+        background: var(--theme-primary-faint);
+        border-color: var(--theme-primary);
+    }
+    @media (max-width: 768px) {
+        .io-wrapper {
+            grid-template-columns: 1fr;
+        }
+        textarea {
+            min-height: 40vh;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>SnapClean - HTML Code Cleaner</h1>
+    <p>Paste your HTML code to remove all comments (HTML, CSS, and JS) and Snaplet watermarks. Get clean, production-ready code in one click.</p>
+    
+    <div class="io-wrapper">
+        <div class="box">
+            <h2>Input</h2>
+            <textarea id="inputCode" placeholder="Paste your HTML code here..."></textarea>
+        </div>
+        <div class="box">
+            <h2>Output</h2>
+            <textarea id="outputCode" readonly placeholder="Cleaned code will appear here..."></textarea>
+        </div>
+    </div>
+    
+    <div class="actions">
+        <button id="cleanBtn">Clean Code</button>
+        <button id="copyBtn" class="secondary">Copy Output</button>
+    </div>
+</div>
+<footer style="position:fixed; bottom:0; width:100%; text-align:center; padding: 15px 0; font-size: 13px; color: var(--text-light);">Made by <a href="https://kaheichan.neocities.org" target="_blank" rel="noopener noreferrer">Ka Hei, Shellcraft Studios</a>. This website is governed by Shellcraft <a href="https://kaheichan.neocities.org/privacyandterms" target="_blank" rel="noopener noreferrer">Terms and Conditions.</a> SnapClean is only for non commercial uses, and any Snaplet watermarks removed for commercial purposes is not allowed to be removed.
+
+<script>
+    const inputCodeEl = document.getElementById('inputCode');
+    const outputCodeEl = document.getElementById('outputCode');
+    const cleanBtn = document.getElementById('cleanBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function cleanCode() {
+        let code = inputCodeEl.value;
+
+        // 1. Remove HTML comments, including Snaplet watermarks
+        code = code.replace(/<!--[\s\S]*?-->/g, '');
+
+        // 2. Remove CSS comments from within <style> tags
+        code = code.replace(/(<style[^>]*>)([\s\S]*?)(<\/style>)/gi, (match, startTag, cssContent, endTag) => {
+            const cleanedCss = cssContent.replace(/\/\*[\s\S]*?\*\//g, '');
+            return startTag + cleanedCss + endTag;
+        });
+
+        // 3. Remove JS comments from within inline <script> tags
+        code = code.replace(/(<script[^>]*>)([\s\S]*?)(<\/script>)/gi, (match, startTag, jsContent, endTag) => {
+            // Only process inline scripts, not those with a src attribute
+            if (startTag.toLowerCase().includes('src=')) {
+                return match;
+            }
+            // This regex handles both multi-line (/* */) and single-line (//) comments
+            const cleanedJs = jsContent.replace(/\/\*[\s\S]*?\*\/|\/\/[^\r\n]*/g, '');
+            return startTag + cleanedJs + endTag;
+        });
+
+        // 4. Remove excessive newlines that might result from comment removal
+        code = code.replace(/^\s*[\r\n]/gm, '');
+
+        outputCodeEl.value = code.trim();
+    }
+
+    cleanBtn.addEventListener('click', cleanCode);
+
+    copyBtn.addEventListener('click', () => {
+        if (!outputCodeEl.value) return;
+        navigator.clipboard.writeText(outputCodeEl.value).then(() => {
+            copyBtn.textContent = 'Copied! ✔';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy Output';
+            }, 2000);
+        }).catch(err => {
+            alert('Failed to copy text to clipboard.');
+            console.error('Copy failed', err);
+        });
+    });
+</script>
+
+</body>
+</html>
