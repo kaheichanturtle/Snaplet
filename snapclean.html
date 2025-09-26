@@ -145,27 +145,21 @@
     function cleanCode() {
         let code = inputCodeEl.value;
 
-        // 1. Remove HTML comments, including Snaplet watermarks
         code = code.replace(/<!--[\s\S]*?-->/g, '');
 
-        // 2. Remove CSS comments from within <style> tags
         code = code.replace(/(<style[^>]*>)([\s\S]*?)(<\/style>)/gi, (match, startTag, cssContent, endTag) => {
             const cleanedCss = cssContent.replace(/\/\*[\s\S]*?\*\//g, '');
             return startTag + cleanedCss + endTag;
         });
 
-        // 3. Remove JS comments from within inline <script> tags
         code = code.replace(/(<script[^>]*>)([\s\S]*?)(<\/script>)/gi, (match, startTag, jsContent, endTag) => {
-            // Only process inline scripts, not those with a src attribute
             if (startTag.toLowerCase().includes('src=')) {
                 return match;
             }
-            // This regex handles both multi-line (/* */) and single-line (//) comments
             const cleanedJs = jsContent.replace(/\/\*[\s\S]*?\*\/|\/\/[^\r\n]*/g, '');
             return startTag + cleanedJs + endTag;
         });
 
-        // 4. Remove excessive newlines that might result from comment removal
         code = code.replace(/^\s*[\r\n]/gm, '');
 
         outputCodeEl.value = code.trim();
